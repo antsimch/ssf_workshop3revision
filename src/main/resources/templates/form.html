@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <body>
+        <h1>Address Book</h1>
+        <h2>Enter contact information below:</h2>
+        <form th:action="@{/contacts/save}" th:object="${contact}" method="POST">
+            <div>
+                Name:
+                <br>
+                <input type="text" th:field="*{name}" placeholder="Name">
+                <br>
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            
+            <br>
+            <div>
+                Email:
+                <br>
+                <input type="text" th:field="*{email}" placeholder="Email">
+                <br>
+                <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+            
+            <br>
+            <div>
+                Phone Number:
+                <br>
+                <input type="text" th:field="*{phoneNumber}" placeholder="Phone Number">
+                <br>
+                <span class="error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+            </div>
+            
+            <br>
+            <div>
+                Date of Birth:
+                <br>
+                <input type="date" th:field="*{dateOfBirth}" placeholder="Date of Birth">
+                <br>
+                <span class="error" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+                <span class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
+            </div>
+            
+            <br>
+            <input type="submit" value="Save">
+        </form>
+
+        <hr>
+        <a th:href="@{/contacts/home}">
+            Back to Contact List
+        </a>
+    </body>
+</html>
