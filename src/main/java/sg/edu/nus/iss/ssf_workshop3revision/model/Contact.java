@@ -95,7 +95,6 @@ public class Contact {
         int calculatedAge = 0;
         
         if (dateOfBirth != null) {
-
             calculatedAge = Period.between(dateOfBirth, LocalDate.now()).getYears();
         }
 

@@ -15,7 +15,7 @@
                 <br>
                 <input type="text" th:field="*{name}" placeholder="Name">
                 <br>
-                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                <span th:errorclass="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </div>
             
             <br>
@@ -24,7 +24,7 @@
                 <br>
                 <input type="text" th:field="*{email}" placeholder="Email">
                 <br>
-                <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                <span th:errorclass="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
             </div>
             
             <br>
@@ -33,7 +33,7 @@
                 <br>
                 <input type="text" th:field="*{phoneNumber}" placeholder="Phone Number">
                 <br>
-                <span class="error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+                <span th:errorclass="error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
             </div>
             
             <br>
@@ -42,13 +42,17 @@
                 <br>
                 <input type="date" th:field="*{dateOfBirth}" placeholder="Date of Birth">
                 <br>
-                <span class="error" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
-                <span class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
+                <span th:errorclass="error" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+                <span th:errorclass="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
             </div>
             
             <br>
-            <input type="submit" value="Save">
+            <button type="submit">Save</button>
         </form>
+
+        <div th:if="${error != null}">
+            <p th:text="${error}"></p>
+        </div>
 
         <hr>
         <a th:href="@{/contacts/home}">
