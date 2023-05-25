@@ -23,20 +23,20 @@ public class Utility {
         return sb.toString();
     }
 
-    public String createFile(String name, String dataDir) {
+    public void createFile(String fileName, String dataDir) {
 
-        String dirPathFileName = dataDir + File.separator + name;
-        File newFile = new File(dirPathFileName);
+        File newFile = new File(getFilePath(fileName, dataDir));
         
         if (!newFile.exists()) {
             try {
                 newFile.createNewFile();
-                return dirPathFileName;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
 
-        return null;
+    public String getFilePath(String fileName, String dataDir) {
+        return dataDir + File.separator + fileName;
     }
 }

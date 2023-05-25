@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,13 +23,13 @@ public class ContactController {
     @Value("${data.dir}") 
     private String dataDir;
 
+    public ContactController(ContactService service) {
+        this.service = service;
+    }
+
     @GetMapping("/home")
     public String getLandingPage() {
         return "home";
-    }
-
-    public ContactController(ContactService service) {
-        this.service = service;
     }
 
     @GetMapping("/new")
@@ -51,8 +52,17 @@ public class ContactController {
         }
 
         service.saveContact(contact, dataDir);
-
         model.addAttribute("successMessage", "Contact is successfully saved " + HttpStatus.CREATED + ".");
+
+        return "contact";
+    }
+
+    @GetMapping("/{contactId}")
+    public String getContactById(Model model, @PathVariable String contactId) {
+        
+        Contact contact = service.getContact(contactId, dataDir);
+        model.addAttribute("contact", contact);
+        
         return "contact";
     }
 

@@ -1,8 +1,12 @@
 package sg.edu.nus.iss.ssf_workshop3revision.service;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.springframework.stereotype.Service;
 
@@ -21,14 +25,10 @@ public class ContactService {
     public void saveContact(Contact contact, String dataDir) {
         
         contact.setId(util.generateHexString());
-        String filePath = util.createFile(contact.getId(), dataDir);
-
-        if (filePath == null) {
-            return;
-        }
+        util.createFile(contact.getId(), dataDir);
 
         try {
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(util.getFilePath(contact.getId(), dataDir));
             BufferedWriter bw = new BufferedWriter(fw);
 
             bw.write(contact.getId());
@@ -47,5 +47,34 @@ public class ContactService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Contact getContact(String contactId, String dataDir) {
+        
+        File newFile = new File(util.getFilePath(contactId, dataDir));
+
+        if (!newFile.exists()) {
+            return null;
+        }
+
+        Contact contact = new Contact();
+
+        try {
+            FileReader fr = new FileReader(newFile);
+            BufferedReader br = new BufferedReader(fr);
+
+            contact.setId(br.readLine());
+            contact.setName(br.readLine());
+            contact.setEmail(br.readLine());
+            contact.setPhoneNumber(br.readLine());
+            contact.setDateOfBirth(LocalDate.parse(br.readLine()));
+
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return contact;
     }
 }
