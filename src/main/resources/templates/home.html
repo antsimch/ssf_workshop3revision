@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
     <body>
+        <div th:if="${errorMessage}">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
         <h1>Address Book</h1>
         <a th:href="@{/contacts/new}">
             Add New Contact

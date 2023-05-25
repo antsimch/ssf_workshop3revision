@@ -61,8 +61,13 @@ public class ContactController {
     public String getContactById(Model model, @PathVariable String contactId) {
         
         Contact contact = service.getContact(contactId, dataDir);
+
+        if (contact == null) {
+            model.addAttribute("errorMessage", "Contact not found " + HttpStatus.NOT_FOUND + ".");
+            return "home";
+        }
+
         model.addAttribute("contact", contact);
-        
         return "contact";
     }
 
