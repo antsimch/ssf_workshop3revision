@@ -11,5 +11,13 @@
         <a th:href="@{/contacts/home}">Home</a>
         <br>
         <a th:href="@{/contacts/new}">Add New Contact</a>
+        <hr>
+
+        <tr th:each="contact : ${contacts}">
+            <td>
+                <a th:href="@{'/contacts/' + ${contact.id}}" th:text="${contact.name}"></a>
+                <br>
+            </td>
+        </tr>
     </body>
 </html>

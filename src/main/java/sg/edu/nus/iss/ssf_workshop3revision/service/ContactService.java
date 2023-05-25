@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -76,5 +78,19 @@ public class ContactService {
         }
 
         return contact;
+    }
+
+    public List<Contact> getAllContacts(String dataDir) {
+
+        File directory = new File(dataDir);
+        File[] files = directory.listFiles();
+        List<Contact> contacts = new ArrayList<>();
+
+        for (File file : files) {
+            Contact contact = getContact(file.getName(), dataDir);
+            contacts.add(contact);
+        }
+
+        return contacts;
     }
 }

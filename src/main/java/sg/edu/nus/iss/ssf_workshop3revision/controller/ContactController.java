@@ -72,7 +72,9 @@ public class ContactController {
     }
 
     @GetMapping("/list")
-    public String getContactList() {
-        return "list";
+    public String getContactList(Model model) {
+
+        model.addAttribute("contacts", service.getAllContacts(dataDir));
+        return "contacts";
     }
 }
