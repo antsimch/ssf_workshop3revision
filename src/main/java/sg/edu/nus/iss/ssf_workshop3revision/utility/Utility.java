@@ -23,7 +23,7 @@ public class Utility {
         return sb.toString();
     }
 
-    public void createFile(String name, String dataDir) {
+    public String createFile(String name, String dataDir) {
 
         String dirPathFileName = dataDir + File.separator + name;
         File newFile = new File(dirPathFileName);
@@ -31,9 +31,12 @@ public class Utility {
         if (!newFile.exists()) {
             try {
                 newFile.createNewFile();
+                return dirPathFileName;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+        return null;
     }
 }

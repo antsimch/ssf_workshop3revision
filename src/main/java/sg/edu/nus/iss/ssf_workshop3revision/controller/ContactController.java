@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 import sg.edu.nus.iss.ssf_workshop3revision.model.Contact;
-import sg.edu.nus.iss.ssf_workshop3revision.utility.Utility;
+import sg.edu.nus.iss.ssf_workshop3revision.service.ContactService;
 
 @Controller
 @RequestMapping("/contacts")
 public class ContactController {
 
-    Utility util;
+    ContactService service;
 
     @Value("${data.dir}") 
     private String dataDir;
@@ -27,8 +27,8 @@ public class ContactController {
         return "home";
     }
 
-    public ContactController(Utility util) {
-        this.util = util;
+    public ContactController(ContactService service) {
+        this.service = service;
     }
 
     @GetMapping("/new")
@@ -50,8 +50,8 @@ public class ContactController {
             return "form";
         }
 
-        contact.setId(util.generateHexString());
-        util.createFile(contact.getId(), dataDir);
+        service.saveContact(contact, dataDir);
+
         model.addAttribute("successMessage", "Contact is successfully saved " + HttpStatus.CREATED + ".");
         return "contact";
     }
